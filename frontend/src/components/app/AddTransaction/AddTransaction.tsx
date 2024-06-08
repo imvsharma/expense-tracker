@@ -40,6 +40,8 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { useExpenses } from "@/lib/context/expense.context";
+import { useUser } from "@/lib/context/user.context";
 
 type AddTransactionValues = {
   expenseType: string;
@@ -53,12 +55,25 @@ const AddTransaction = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const form = useForm<AddTransactionValues>();
     const { control, handleSubmit } = form;
+    const expenses = useExpenses();
+    const user = useUser()
 
     const addTransactionHandler: SubmitHandler<AddTransactionValues> = (
         data: AddTransactionValues
     ) => {
         console.log(data);
-        setIsDialogOpen(false)
+        let { amount } = data
+        
+        if (typeof(amount) === 'string') {
+            amount = parseInt(amount)
+        }
+        console.log(typeof(amount))
+        const userId = user.current?.$id
+        const expense = {userId: userId, ...data, amount}
+        console.log(expense);
+        expenses.addExpense(expense)
+        setIsDialogOpen(false);
+
     };
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -217,7 +232,7 @@ const AddTransaction = () => {
           
         
                 <DialogFooter>
-                    <Button type="submit">Save changes</Button>
+                    <Button type="submit">Submit</Button>
                 </DialogFooter>
             </form>
         </Form>

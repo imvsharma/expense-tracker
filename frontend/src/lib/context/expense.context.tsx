@@ -11,9 +11,17 @@ interface IExpense extends Models.Document {
     expenseDate: Date | null,
 }
 
+interface IExpenseInput {
+    expenseType: string,
+    expenseName: string,
+    amount: number,
+    category: string,
+    expenseDate: Date | null,
+}
+
 export interface IExpenseContext {
     current: IExpense [] | Models.Document [] | null,
-    addExpense: (expense:IExpense) => Promise<void>,
+    addExpense: (expense:IExpenseInput) => Promise<void>,
     removeExpense: (id: string) => Promise<void>,
 }
 
@@ -27,7 +35,7 @@ const ExpenseContext = createContext<IExpenseContext | undefined>(undefined)
 export const ExpenseProvider = ({children, ...props}: IExpenseProviderProps) => {
     const [expense, setExpense] = useState<IExpense[] | Models.Document[]>([]);
 
-    const addExpense = async (expense:IExpense) => {
+    const addExpense = async (expense:IExpenseInput) => {
         const response = await expressService.addExpense(expense);
         setExpense((expense) => [response, ...expense])
     }
