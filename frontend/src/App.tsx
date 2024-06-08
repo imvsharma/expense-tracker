@@ -11,6 +11,7 @@ import HomePage from './pages/Home/HomePage';
 import UserProvider from './lib/context/user.context';
 import PrivateRoute from './components/app/PrivateRoute';
 import DashboardPage from './pages/Home/Dashboard/DashboardPage';
+import { ExpenseProvider } from './lib/context/expense.context';
 
 const router = createBrowserRouter([
   {
@@ -46,7 +47,9 @@ function App() {
   return (
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
       <UserProvider>
-        <RouterProvider router={router} />
+        <ExpenseProvider>
+          <RouterProvider router={router} />
+        </ExpenseProvider>
       </UserProvider>
     </ThemeProvider>
   )

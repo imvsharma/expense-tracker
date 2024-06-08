@@ -9,7 +9,7 @@ interface IExpense {
     expenseName: string,
     amount: number,
     category: string,
-    expenseDate: Date,
+    expenseDate: Date | null,
 }
 
 const expressService = {
