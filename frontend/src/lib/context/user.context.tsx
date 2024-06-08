@@ -7,7 +7,7 @@ type AuthState = "Pending" | "Success" | "Error"
 export interface User {
     current: Models.Session | Models.User<Models.Preferences> | null;
     logout: () => Promise<void>;
-    register: (email: string, password: string) => Promise<void>;
+    register: (email: string, password: string, name: string) => Promise<void>;
     login: (email: string, password: string) => Promise<void>,
     authState: AuthState
 }
@@ -28,8 +28,8 @@ const UserProvider = ({children, ...props}: UserProviderProps) => {
         setUserAuthState("Success")
     }
 
-    const register = async (email: string, password: string) => {
-        await account.create(ID.unique(), email, password);
+    const register = async (email: string, password: string, name: string) => {
+        await account.create(ID.unique(), email, password, name);
         await login(email, password);
 
     }

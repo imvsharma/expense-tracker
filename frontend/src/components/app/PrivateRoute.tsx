@@ -9,7 +9,7 @@ const PrivateRoute = () => {
             <div>Loading...</div>
         )
     }
-
+    console.log(user)
     return (
         user.current && user.authState === "Success" ? <Outlet /> : <Navigate to='/login' />
     )

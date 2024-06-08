@@ -14,6 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { redirect, useNavigate } from "react-router-dom";
 
 type SignupInput = {
+  name: string
   email: string
   password: string
 }
@@ -29,9 +30,9 @@ const SignupPage = () => {
   } = useForm<SignupInput>()
 
   const onSubmit: SubmitHandler<SignupInput> = async (data: SignupInput) => {
-    const {email, password} = data
+    const {email, password, name} = data
     console.log(user);
-    await user.register(email, password)
+    await user.register(email, password, name)
     navigate('/')
   }
   return (
@@ -45,6 +46,15 @@ const SignupPage = () => {
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-8">
+          <div className="grid gap-2">
+              <Label htmlFor="name" >Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Enter your name"
+                {...register('name', {required: true})}
+              />
+            </div>
             <div className="grid gap-2">
               <Label htmlFor="email" >Email</Label>
               <Input
