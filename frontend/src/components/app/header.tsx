@@ -113,7 +113,7 @@ const Header = () => {
         </Sheet>
         <div className="ml-auto flex">
           {/* <Button size="default" className="mt-0 mr-5 text-sm font-poppins font-semibold">Add Transaction</Button> */}
-          <AddTransaction />
+          <AddTransaction name="Add New Transaction"/>
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
