@@ -59,23 +59,20 @@ const AddTransaction = ({ name }: IAddTransaction) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const form = useForm<AddTransactionValues>();
   const { control, handleSubmit } = form;
-  const expenses = useExpenses();
+  // const expenses = useExpenses();
   const user = useUser();
 
   const addTransactionHandler: SubmitHandler<AddTransactionValues> = (
     data: AddTransactionValues
   ) => {
-    console.log(data);
     let { amount } = data;
 
     if (typeof amount === "string") {
       amount = parseInt(amount);
     }
-    console.log(typeof amount);
     const userId = user.current?.$id;
     const expense = { userId: userId, ...data, amount };
-    console.log(expense);
-    expenses.addExpense(expense);
+    // expenses.addExpense(expense);
     setIsDialogOpen(false);
   };
   return (

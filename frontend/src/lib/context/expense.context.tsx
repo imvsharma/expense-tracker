@@ -1,4 +1,5 @@
-import expressService from "@/services/expense";
+
+import { expenseService } from "@/services/expense";
 import { Models } from "appwrite";
 import {
   createContext,
@@ -46,14 +47,14 @@ export const ExpenseProvider = ({
 
   const addExpense = async (expense: IExpenseInput) => {
     setLoading(true);
-    const response = await expressService.addExpense(expense);
+    const response = await expenseService.addExpense(expense);
     setLoading(false);
     setExpense((expense) => [response, ...expense]);
   };
 
   const removeExpense = async (id: string) => {
     setLoading(true);
-    await expressService.removeExpense(id);
+    await expenseService.removeExpense(id);
     setExpense((expenses) => expenses.filter((expense) => expense.id !== id));
     await getExpenses();
     setLoading(false);
@@ -61,11 +62,9 @@ export const ExpenseProvider = ({
 
   const getExpenses = async () => {
     setLoading(true);
-    console.log("Loading", loading)
-    const response = await expressService.getExpenses();
+    const response = await expenseService.getExpenses();
     setExpense(response.documents);
     setLoading(false);
-    console.log("Loading", loading)
   };
 
   useEffect(() => {

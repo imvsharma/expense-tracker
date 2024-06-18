@@ -12,7 +12,7 @@ interface IExpense {
     expenseDate: Date | null,
 }
 
-const expressService = {
+export const expenseService = {
     addExpense: async(expense: IExpense) => {
         return await databases.createDocument(dbId, expenseCollectionId, ID.unique(), expense)
     },
@@ -26,4 +26,3 @@ const expressService = {
     }
 }
 
-export default expressService

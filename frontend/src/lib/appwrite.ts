@@ -3,7 +3,6 @@ import { Databases, Account, Client } from "appwrite";
 
 
 const client: Client = new Client();
-console.log(appWriteConfig)
 
 client.setEndpoint(appWriteConfig.endpoint).setProject(appWriteConfig.project)
 
