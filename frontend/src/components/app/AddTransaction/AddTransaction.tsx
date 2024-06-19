@@ -60,7 +60,7 @@ const AddTransaction = ({ name }: IAddTransaction) => {
   const form = useForm<AddTransactionValues>();
   const { control, handleSubmit } = form;
   // const expenses = useExpenses();
-  const user = useUser();
+  // const user = useUser();
 
   const addTransactionHandler: SubmitHandler<AddTransactionValues> = (
     data: AddTransactionValues
@@ -70,8 +70,8 @@ const AddTransaction = ({ name }: IAddTransaction) => {
     if (typeof amount === "string") {
       amount = parseInt(amount);
     }
-    const userId = user.current?.$id;
-    const expense = { userId: userId, ...data, amount };
+    // const userId = user.current?.$id;
+    // const expense = { userId: userId, ...data, amount };
     // expenses.addExpense(expense);
     setIsDialogOpen(false);
   };

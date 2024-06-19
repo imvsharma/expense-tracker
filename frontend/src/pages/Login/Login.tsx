@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useUser } from "@/lib/context/user.context";
+import { useLogin } from "@/hooks/useUser";
+import { Navigate } from "@tanstack/react-router";
+// import { useUser } from "@/lib/context/user.context";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -22,14 +24,17 @@ type ILoginInputs = {
 
 
 const LoginPage = () => {
-  const user = useUser();
-  const navigate = useNavigate()
+  const {mutate: login, error, isSuccess} = useLogin()
+  // const user = useUser();
+  // const navigate = useNavigate()
   const {register, handleSubmit, formState:{isDirty, isValid}} = useForm<ILoginInputs>();
 
   const loginHandler: SubmitHandler<ILoginInputs> = async (data: ILoginInputs) => {
     const {email, password} = data
-    await user.login(email, password)
-    navigate('/')
+    // await user.login(email, password)
+    // navigate('/')
+    login({email, password})
+    
   }
   return (
     <div className='flex justify-center items-center h-screen'>

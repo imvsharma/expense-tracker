@@ -20,9 +20,9 @@ type SignupInput = {
 }
 
 const SignupPage = () => {
-  const user = useUser();
-  const navigate = useNavigate()
-  console.log(user)
+  // const user = useUser();
+  // const navigate = useNavigate()
+  // console.log(user)
   const {
     register,
     handleSubmit,
@@ -31,9 +31,9 @@ const SignupPage = () => {
 
   const onSubmit: SubmitHandler<SignupInput> = async (data: SignupInput) => {
     const {email, password, name} = data
-    console.log(user);
-    await user.register(email, password, name)
-    navigate('/')
+    // console.log(user);
+    // await user.register(email, password, name)
+    // navigate('/')
   }
   return (
     <div className='flex justify-center items-center h-screen'>

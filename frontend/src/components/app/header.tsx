@@ -12,54 +12,55 @@ import {
 import { useUser } from "@/lib/context/user.context";
 import { useNavigate } from "react-router-dom";
 import AddTransaction from "./AddTransaction/AddTransaction";
+import { Link } from "@tanstack/react-router";
 
 const Header = () => {
-  const user = useUser()
-  const navigate = useNavigate()
+  // const user = useUser()
+  // const navigate = useNavigate()
   const logoutHandler = async () => {
-    await user.logout()
-    navigate('/login')
+    // await user.logout()
+    // navigate('/login')
   }
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <nav className="hidden flex-col gap-6 text-lg font-medium font-roboto md:flex md:flex-row md:items-center md:gap-5 md:text-base md:font-semibold lg:gap-6">
-          <a
+          <Link
             href="#"
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
             <HandCoins className="h-6 w-6" />
             <span className="sr-only">Acme Inc</span>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="text-muted-foreground  transition-colors hover:text-foreground"
           >
             Dashboard
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Orders
-          </a>
-          <a
+            Expenses
+          </Link>
+          <Link
             href="#"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Products
-          </a>
-          <a
+            Statistics
+          </Link>
+          <Link
             href="#"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Customers
-          </a>
-          <a
+            Goals
+          </Link>
+          <Link
             href="#"
             className="text-foreground transition-colors hover:text-foreground"
           >
             Settings
-          </a>
+          </Link>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
