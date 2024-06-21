@@ -7,30 +7,38 @@ import { useEffect } from "react"
 
 
 const HomePage = () => {
-    const {data, error, isError, isFetching, isFetched} = useIsUserLoggedIn()
-     if (isFetching) {
-        return (
-            <Loading />
-        )
-     }
 
-     if(isError) {
-        console.log(error);
-        return (
-            <Navigate to="/login" />
-        )
-     }
+    return (
+        <>
+            <Header />
+            <Outlet />
+        </>
+        
+    )
+    // const {data, error, isError, isFetching, isFetched} = useIsUserLoggedIn()
+    //  if (isFetching) {
+    //     return (
+    //         <Loading />
+    //     )
+    //  }
 
-     if(isFetched) {
-        console.log(data);
-        return (
-            <>
-                <Header />
-                <Outlet />
-            </>
+    //  if(isError) {
+    //     console.log(error);
+    //     return (
+    //         <Navigate to="/login" />
+    //     )
+    //  }
+
+    //  if(isFetched) {
+    //     console.log(data);
+    //     return (
+    //         <>
+    //             <Header />
+    //             <Outlet />
+    //         </>
             
-        )
-     }
+    //     )
+    //  }
     
 }
 

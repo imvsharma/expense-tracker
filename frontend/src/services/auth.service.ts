@@ -27,7 +27,15 @@ export const AuthService = {
         return deleteRes
     },
 
-    isUserLoggedIn: async ():  Promise<Models.User<Models.Preferences>> => {
-        return await account.get();
+    isUserLoggedIn: async ():  Promise<boolean> => {
+        try {
+            const res = await account.get();
+            console.log(res)
+            return true 
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+        
     } 
 }
