@@ -14,6 +14,7 @@ import { Navigate } from "@tanstack/react-router";
 // import { useUser } from "@/lib/context/user.context";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 //Step 1 Form Handling:  create type for form input
 
@@ -24,20 +25,18 @@ type ILoginInputs = {
 
 
 const LoginPage = () => {
-  const {mutate: login, error, isSuccess} = useLogin()
-  // const user = useUser();
-  // const navigate = useNavigate()
+  const {mutate: login} = useLogin()
   const {register, handleSubmit, formState:{isDirty, isValid}} = useForm<ILoginInputs>();
 
   const loginHandler: SubmitHandler<ILoginInputs> = async (data: ILoginInputs) => {
     const {email, password} = data
-    // await user.login(email, password)
-    // navigate('/')
+    toast("User Login in-process")
     login({email, password})
+    toast.dismiss()
     
   }
   return (
-    <div className='flex justify-center items-center h-screen'>
+    <div className='flex justify-center items-center h-screen '>
       <Card className="p-2">
         <CardHeader>
           <CardTitle className="text-3xl pb-5">Login</CardTitle>

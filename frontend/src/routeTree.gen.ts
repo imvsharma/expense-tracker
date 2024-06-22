@@ -16,6 +16,10 @@ import { Route as LoginImport } from './routes/login'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as LayoutDashboardImport } from './routes/_layout/dashboard'
+import { Route as LayoutUserIndexImport } from './routes/_layout/user/index'
+import { Route as LayoutUserSettingsImport } from './routes/_layout/user/settings'
+import { Route as LayoutUserChangepasswordImport } from './routes/_layout/user/changepassword'
+import { Route as LayoutUserAccountinfoImport } from './routes/_layout/user/accountinfo'
 
 // Create/Update Routes
 
@@ -41,6 +45,26 @@ const IndexRoute = IndexImport.update({
 
 const LayoutDashboardRoute = LayoutDashboardImport.update({
   path: '/dashboard',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutUserIndexRoute = LayoutUserIndexImport.update({
+  path: '/user/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutUserSettingsRoute = LayoutUserSettingsImport.update({
+  path: '/user/settings',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutUserChangepasswordRoute = LayoutUserChangepasswordImport.update({
+  path: '/user/changepassword',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutUserAccountinfoRoute = LayoutUserAccountinfoImport.update({
+  path: '/user/accountinfo',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -83,6 +107,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDashboardImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/user/accountinfo': {
+      id: '/_layout/user/accountinfo'
+      path: '/user/accountinfo'
+      fullPath: '/user/accountinfo'
+      preLoaderRoute: typeof LayoutUserAccountinfoImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/user/changepassword': {
+      id: '/_layout/user/changepassword'
+      path: '/user/changepassword'
+      fullPath: '/user/changepassword'
+      preLoaderRoute: typeof LayoutUserChangepasswordImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/user/settings': {
+      id: '/_layout/user/settings'
+      path: '/user/settings'
+      fullPath: '/user/settings'
+      preLoaderRoute: typeof LayoutUserSettingsImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/user/': {
+      id: '/_layout/user/'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof LayoutUserIndexImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
@@ -90,7 +142,13 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  LayoutRoute: LayoutRoute.addChildren({ LayoutDashboardRoute }),
+  LayoutRoute: LayoutRoute.addChildren({
+    LayoutDashboardRoute,
+    LayoutUserAccountinfoRoute,
+    LayoutUserChangepasswordRoute,
+    LayoutUserSettingsRoute,
+    LayoutUserIndexRoute,
+  }),
   LoginRoute,
   SignupRoute,
 })
@@ -115,7 +173,11 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
-        "/_layout/dashboard"
+        "/_layout/dashboard",
+        "/_layout/user/accountinfo",
+        "/_layout/user/changepassword",
+        "/_layout/user/settings",
+        "/_layout/user/"
       ]
     },
     "/login": {
@@ -126,6 +188,22 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/dashboard": {
       "filePath": "_layout/dashboard.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/user/accountinfo": {
+      "filePath": "_layout/user/accountinfo.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/user/changepassword": {
+      "filePath": "_layout/user/changepassword.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/user/settings": {
+      "filePath": "_layout/user/settings.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/user/": {
+      "filePath": "_layout/user/index.tsx",
       "parent": "/_layout"
     }
   }

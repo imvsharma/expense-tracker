@@ -12,7 +12,6 @@ const key = 'USER-DETAILS'
 export const AuthService = {
     login: async ({email, password}: ILogin) => {
         const res = await account.createEmailPasswordSession(email, password);
-        console.log(res)
         StorageService.set(key, JSON.stringify({userId: res['userId']}))
         return res
     },
@@ -30,7 +29,6 @@ export const AuthService = {
     isUserLoggedIn: async ():  Promise<boolean> => {
         try {
             const res = await account.get();
-            console.log(res)
             return true 
         } catch (error) {
             console.log(error)

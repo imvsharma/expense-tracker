@@ -10,16 +10,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/lib/context/user.context";
-import { useNavigate } from "react-router-dom";
 import AddTransaction from "./AddTransaction/AddTransaction";
-import { Link } from "@tanstack/react-router";
+import { Link, redirect, useNavigate } from "@tanstack/react-router";
+import { useUserLogout } from "@/hooks/useUser";
 
 const Header = () => {
-  // const user = useUser()
-  // const navigate = useNavigate()
-  const logoutHandler = async () => {
-    // await user.logout()
-    // navigate('/login')
+  const navigate = useNavigate()
+  const {mutate: logout} = useUserLogout()
+  const logoutHandler = () => {
+    logout()
   }
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -125,7 +124,7 @@ const Header = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" >
               <DropdownMenuItem>Account Information</DropdownMenuItem>
-              <DropdownMenuItem>Change Password</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate({to: '/user/changepassword'})}>Change Password</DropdownMenuItem>
               <DropdownMenuItem>Export Data</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Settings</DropdownMenuItem>
