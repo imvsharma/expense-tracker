@@ -57,7 +57,6 @@ export const ChangeUserPassword = () => {
   const onSubmitHandler = (
     values: z.infer<typeof changeUserPasswordFormSchema>
   ) => {
-    console.log(form.formState)
     console.log(values);
   };
 

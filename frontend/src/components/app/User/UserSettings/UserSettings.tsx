@@ -38,7 +38,7 @@ export const UserSettings = () => {
           </nav>
         </aside>
           
-        <div className="w-3/4 h-full">
+        <div className="w-full h-full lg:w-3/4">
           <Outlet />
         </div>
       </div>
