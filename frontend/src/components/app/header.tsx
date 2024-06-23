@@ -24,39 +24,48 @@ const Header = () => {
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
         <nav className="hidden flex-col gap-6 text-lg font-medium font-roboto md:flex md:flex-row md:items-center md:gap-5 md:text-base md:font-semibold lg:gap-6">
           <Link
-            href="#"
+            to="/"
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
             <HandCoins className="h-6 w-6" />
             <span className="sr-only">Acme Inc</span>
           </Link>
           <Link
-            href="#"
-            className="text-muted-foreground  transition-colors hover:text-foreground"
+            to={"/dashboard"}
+            className="text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{
+              className: 'font-bold text-white',
+            }}
           >
             Dashboard
           </Link>
-          <Link
-            href="#"
+          {/* <Link
+            
             className="text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{className: "text-foreground"}}
           >
             Expenses
           </Link>
           <Link
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            
+            className="text-muted-foreground transition-colors hover:text-foreground "
+            activeProps={{className: "text-foreground"}}
           >
             Statistics
           </Link>
           <Link
             href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className="text-muted-foreground transition-colors hover:text-foreground "
+            activeProps={{className: "text-foreground"}}
           >
             Goals
-          </Link>
+          </Link> */}
           <Link
-            href="#"
-            className="text-foreground transition-colors hover:text-foreground"
+            to="/user/settings"
+            className="text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
+            activeProps={{
+              className: 'font-bold text-white',
+            }}
           >
             Settings
           </Link>

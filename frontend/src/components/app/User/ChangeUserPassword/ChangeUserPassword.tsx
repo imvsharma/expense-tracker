@@ -51,6 +51,7 @@ export const ChangeUserPassword = () => {
       newPassword: "",
       confirmPassword: "",
     },
+    mode: "onBlur"
   });
 
   const onSubmitHandler = (
