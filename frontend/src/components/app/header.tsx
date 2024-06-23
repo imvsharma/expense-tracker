@@ -61,7 +61,7 @@ const Header = () => {
             Goals
           </Link> */}
           <Link
-            to="/user/settings"
+            to="/user/settings/profile"
             className="text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
             activeProps={{
               className: 'font-bold text-white',

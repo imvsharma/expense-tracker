@@ -20,6 +20,9 @@ import { Route as LayoutUserIndexImport } from './routes/_layout/user/index'
 import { Route as LayoutUserSettingsImport } from './routes/_layout/user/settings'
 import { Route as LayoutUserChangepasswordImport } from './routes/_layout/user/changepassword'
 import { Route as LayoutUserAccountinfoImport } from './routes/_layout/user/accountinfo'
+import { Route as LayoutUserSettingsProfileImport } from './routes/_layout/user/settings/profile'
+import { Route as LayoutUserSettingsAppearanceImport } from './routes/_layout/user/settings/appearance'
+import { Route as LayoutUserSettingsAccountImport } from './routes/_layout/user/settings/account'
 
 // Create/Update Routes
 
@@ -66,6 +69,22 @@ const LayoutUserChangepasswordRoute = LayoutUserChangepasswordImport.update({
 const LayoutUserAccountinfoRoute = LayoutUserAccountinfoImport.update({
   path: '/user/accountinfo',
   getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutUserSettingsProfileRoute = LayoutUserSettingsProfileImport.update({
+  path: '/profile',
+  getParentRoute: () => LayoutUserSettingsRoute,
+} as any)
+
+const LayoutUserSettingsAppearanceRoute =
+  LayoutUserSettingsAppearanceImport.update({
+    path: '/appearance',
+    getParentRoute: () => LayoutUserSettingsRoute,
+  } as any)
+
+const LayoutUserSettingsAccountRoute = LayoutUserSettingsAccountImport.update({
+  path: '/account',
+  getParentRoute: () => LayoutUserSettingsRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -135,6 +154,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutUserIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/user/settings/account': {
+      id: '/_layout/user/settings/account'
+      path: '/account'
+      fullPath: '/user/settings/account'
+      preLoaderRoute: typeof LayoutUserSettingsAccountImport
+      parentRoute: typeof LayoutUserSettingsImport
+    }
+    '/_layout/user/settings/appearance': {
+      id: '/_layout/user/settings/appearance'
+      path: '/appearance'
+      fullPath: '/user/settings/appearance'
+      preLoaderRoute: typeof LayoutUserSettingsAppearanceImport
+      parentRoute: typeof LayoutUserSettingsImport
+    }
+    '/_layout/user/settings/profile': {
+      id: '/_layout/user/settings/profile'
+      path: '/profile'
+      fullPath: '/user/settings/profile'
+      preLoaderRoute: typeof LayoutUserSettingsProfileImport
+      parentRoute: typeof LayoutUserSettingsImport
+    }
   }
 }
 
@@ -146,7 +186,11 @@ export const routeTree = rootRoute.addChildren({
     LayoutDashboardRoute,
     LayoutUserAccountinfoRoute,
     LayoutUserChangepasswordRoute,
-    LayoutUserSettingsRoute,
+    LayoutUserSettingsRoute: LayoutUserSettingsRoute.addChildren({
+      LayoutUserSettingsAccountRoute,
+      LayoutUserSettingsAppearanceRoute,
+      LayoutUserSettingsProfileRoute,
+    }),
     LayoutUserIndexRoute,
   }),
   LoginRoute,
@@ -200,11 +244,28 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/user/settings": {
       "filePath": "_layout/user/settings.tsx",
-      "parent": "/_layout"
+      "parent": "/_layout",
+      "children": [
+        "/_layout/user/settings/account",
+        "/_layout/user/settings/appearance",
+        "/_layout/user/settings/profile"
+      ]
     },
     "/_layout/user/": {
       "filePath": "_layout/user/index.tsx",
       "parent": "/_layout"
+    },
+    "/_layout/user/settings/account": {
+      "filePath": "_layout/user/settings/account.tsx",
+      "parent": "/_layout/user/settings"
+    },
+    "/_layout/user/settings/appearance": {
+      "filePath": "_layout/user/settings/appearance.tsx",
+      "parent": "/_layout/user/settings"
+    },
+    "/_layout/user/settings/profile": {
+      "filePath": "_layout/user/settings/profile.tsx",
+      "parent": "/_layout/user/settings"
     }
   }
 }

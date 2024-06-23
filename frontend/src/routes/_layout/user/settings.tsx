@@ -1,3 +1,4 @@
+import { UserSettings } from '@/components/app/User/UserSettings/UserSettings'
 import { UserSettingsPage } from '@/pages/Home/User/UserSettingsPage'
 import { createFileRoute } from '@tanstack/react-router'
 
