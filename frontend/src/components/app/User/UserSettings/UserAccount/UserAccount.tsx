@@ -66,7 +66,7 @@ export const UserAccount = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input type="text" {...field} />
                 </FormControl>
