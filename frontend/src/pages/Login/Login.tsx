@@ -16,17 +16,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useLogin } from "@/hooks/useUser";
-import useBoundStore from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
-import { password } from "bun";
-import { register } from "module";
-import { useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { isDirty, isValid, z } from "zod";
+import {  z } from "zod";
 
 const LoginFormSchema = z
   .object({
@@ -45,16 +41,9 @@ const LoginFormSchema = z
   })
   .required();
 
-type ILoginInputs = {
-  email: string;
-  password: string;
-};
 
 const LoginPage = () => {
-  const { getUser } = useBoundStore();
   const { mutate: login } = useLogin();
-  //const {register, handleSubmit, formState:{isDirty, isValid}} = useForm<ILoginInputs>();
-
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
@@ -68,7 +57,6 @@ const LoginPage = () => {
     const { email, password } = data;
     toast("User Login in-process");
     login({ email, password });
-    toast.dismiss();
   };
 
   return (
@@ -125,7 +113,6 @@ const LoginPage = () => {
 
                 <Button
                   type="submit"
-                  disabled={!isDirty || !isValid}
                   className="w-full"
                 >
                   Sign in

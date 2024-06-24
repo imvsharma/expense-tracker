@@ -33,6 +33,12 @@ export const useSignup = () => {
             navigate({to: '/'});
             toast.dismiss(1)
             toast.success("User registered successfully")
+        },
+        onError: (error) => {
+            
+            toast.dismiss(1)
+            toast.error(error.message)
+            
         }
     })
 }
