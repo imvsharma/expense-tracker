@@ -53,10 +53,13 @@ export const useIsUserLoggedIn = () => {
 }
 
 export const useUserLogout = () => {
+    const {resetExpense, resetUser} = useBoundStore()
     const navigate = useNavigate()
     return useMutation({
         mutationFn: AuthService.logout,
         onSuccess: () => {
+            resetExpense();
+            resetUser()
             navigate({to: '/login'})
         }
     })
