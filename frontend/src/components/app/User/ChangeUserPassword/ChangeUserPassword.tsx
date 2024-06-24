@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useUpdatePassword } from "@/hooks/useUser";
 
 const changeUserPasswordFormSchema = z
   .object({
@@ -41,16 +42,20 @@ const changeUserPasswordFormSchema = z
     }
   });
 
+
+const InitialValues = {
+  currentPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+}
+
   
 
 export const ChangeUserPassword = () => {
+  const {mutate: updatePassword} = useUpdatePassword()
   const form = useForm<z.infer<typeof changeUserPasswordFormSchema>>({
     resolver: zodResolver(changeUserPasswordFormSchema),
-    defaultValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    },
+    defaultValues: InitialValues,
     mode: "onBlur"
   });
 
@@ -58,6 +63,13 @@ export const ChangeUserPassword = () => {
     values: z.infer<typeof changeUserPasswordFormSchema>
   ) => {
     console.log(values);
+    const updatePasswordValues = {
+      newPassword: values.newPassword,
+      oldPassword: values.currentPassword
+    }
+    updatePassword(updatePasswordValues)
+    form.reset(InitialValues)
+    
   };
 
   return (

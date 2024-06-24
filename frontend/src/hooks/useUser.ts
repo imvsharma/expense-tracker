@@ -1,16 +1,32 @@
 import { AuthService } from "@/services/auth.service"
+import useBoundStore from "@/store/store"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 
 export const useLogin = () => {
+    const {getUser} = useBoundStore()
     const navigate = useNavigate()
     return useMutation({
         mutationFn: AuthService.login,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            console.log(data)
+            getUser(data.userId)
             navigate({to: '/'});
             toast.dismiss(1)
             toast.success("User Logged in successfully")
+        }
+    })
+}
+
+export const useSignup = () => {
+    const navigate = useNavigate()
+    return useMutation({
+        mutationFn: AuthService.signup,
+        onSuccess: () => {
+            navigate({to: '/'});
+            toast.dismiss(1)
+            toast.success("User registered successfully")
         }
     })
 }
@@ -31,5 +47,11 @@ export const useUserLogout = () => {
         onSuccess: () => {
             navigate({to: '/login'})
         }
+    })
+}
+
+export const useUpdatePassword = () => {
+    return useMutation({
+        mutationFn: AuthService.changePassword
     })
 }

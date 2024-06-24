@@ -21,7 +21,7 @@ declare module '@tanstack/react-router' {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <Toaster position="top-right" />
       <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />

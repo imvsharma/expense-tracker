@@ -9,9 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useUser } from "@/lib/context/user.context";
+import { useSignup } from "@/hooks/useUser";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { redirect, useNavigate } from "react-router-dom";
 
 type SignupInput = {
   name: string
@@ -20,6 +19,7 @@ type SignupInput = {
 }
 
 const SignupPage = () => {
+  const {mutate: signup} = useSignup()
   // const user = useUser();
   // const navigate = useNavigate()
   // console.log(user)
@@ -31,6 +31,7 @@ const SignupPage = () => {
 
   const onSubmit: SubmitHandler<SignupInput> = async (data: SignupInput) => {
     const {email, password, name} = data
+    signup({email: email, password: password, name: name})
     // console.log(user);
     // await user.register(email, password, name)
     // navigate('/')

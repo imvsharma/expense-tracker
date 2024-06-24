@@ -18,7 +18,7 @@ const Dashboard = () => {
 		if(data && data?.documents){
 			getExpenses(data?.documents);
 		}
-	}, [data,])
+	}, [data])
 
 	
 	if(isFetching) {

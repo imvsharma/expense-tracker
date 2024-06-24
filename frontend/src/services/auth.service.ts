@@ -7,6 +7,17 @@ interface ILogin {
     password: string
 }
 
+interface ISignup {
+    email: string,
+    password: string,
+    name: string
+}
+
+interface IUpdatePassword {
+    newPassword: string,
+    oldPassword: string
+}
+
 const key = 'USER-DETAILS'
 
 export const AuthService = {
@@ -16,14 +27,20 @@ export const AuthService = {
         return res
     },
 
-    signup: async (email: string, password: string, name: string) => {
-        await account.create(ID.unique(), email, password, name);
+    signup: async ({email, password, name}: ISignup) => {
+        const res = await account.create(ID.unique(), email, password, name);
+        console.log(res)
+        return res
     },
 
     logout: async () => {
         const deleteRes = await account.deleteSession("current")
         StorageService.remove(key);
         return deleteRes
+    },
+
+    changePassword: async ({newPassword, oldPassword}: IUpdatePassword) => {
+        return await account.updatePassword(newPassword, oldPassword)
     },
 
     isUserLoggedIn: async ():  Promise<boolean> => {

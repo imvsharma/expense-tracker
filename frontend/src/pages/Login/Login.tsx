@@ -10,7 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLogin } from "@/hooks/useUser";
+import useBoundStore from "@/store/store";
 import { Navigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 // import { useUser } from "@/lib/context/user.context";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -25,17 +27,32 @@ type ILoginInputs = {
 
 
 const LoginPage = () => {
-  const {mutate: login} = useLogin()
+  const {mutate: login, data: userDetails, isSuccess, isPending} = useLogin()
   const {register, handleSubmit, formState:{isDirty, isValid}} = useForm<ILoginInputs>();
-
+  const {getUser} = useBoundStore()
+    
   const loginHandler: SubmitHandler<ILoginInputs> = async (data: ILoginInputs) => {
     const {email, password} = data
     toast("User Login in-process")
     login({email, password})
+    if(isSuccess && userDetails) {
+      console.log("userDetails ::", userDetails)
+    }
     toast.dismiss()
     
   }
+
+  useEffect(() => {
+    console.log(userDetails)
+    if(userDetails && userDetails.$id) {
+      getUser(userDetails.$id)
+    }
+    
+  }, [isSuccess])
   return (
+    <>
+    {isPending && <div>Login in-process</div>}
+    {isSuccess && <div>Login succesful: {userDetails.$id}</div>}
     <div className='flex justify-center items-center h-screen '>
       <Card className="p-2">
         <CardHeader>
@@ -77,6 +94,7 @@ const LoginPage = () => {
         </CardFooter>
       </Card>
     </div>
+    </>
   );
 };
 

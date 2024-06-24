@@ -15,7 +15,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
@@ -31,7 +30,7 @@ import {
 } from "@/components/ui/select";
 
 import { cn } from "@/lib/utils";
-import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -40,8 +39,8 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { useExpenses } from "@/lib/context/expense.context";
-import { useUser } from "@/lib/context/user.context";
+import { useAddExpense } from "@/hooks/useExpenses";
+import useBoundStore from "@/store/store";
 
 type AddTransactionValues = {
   expenseType: string;
@@ -49,6 +48,7 @@ type AddTransactionValues = {
   amount: number;
   category: string;
   expenseDate: Date;
+  userId: string
 };
 
 interface IAddTransaction {
@@ -56,9 +56,11 @@ interface IAddTransaction {
 }
 
 const AddTransaction = ({ name }: IAddTransaction) => {
+  const {user} = useBoundStore()
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const form = useForm<AddTransactionValues>();
   const { control, handleSubmit } = form;
+  const {mutate: addExpense} = useAddExpense()
   // const expenses = useExpenses();
   // const user = useUser();
 
@@ -70,9 +72,9 @@ const AddTransaction = ({ name }: IAddTransaction) => {
     if (typeof amount === "string") {
       amount = parseInt(amount);
     }
-    // const userId = user.current?.$id;
-    // const expense = { userId: userId, ...data, amount };
-    // expenses.addExpense(expense);
+    const userId = user.userId
+    const expense = {  ...data, userId, amount };
+    addExpense(expense);
     setIsDialogOpen(false);
   };
   return (

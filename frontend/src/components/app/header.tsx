@@ -64,7 +64,7 @@ const Header = () => {
             to="/user/settings/profile"
             className="text-muted-foreground transition-colors hover:text-foreground active:text-foreground"
             activeProps={{
-              className: 'font-bold text-white',
+              className: 'font-bold text-black dark:text-white',
             }}
           >
             Settings

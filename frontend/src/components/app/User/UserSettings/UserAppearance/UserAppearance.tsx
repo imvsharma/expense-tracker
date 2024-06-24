@@ -6,21 +6,29 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import { useTheme } from "@/components/theme-provider";
 
 const themeFormSchema = z.object({
   theme: z.enum(["light", "dark", "system"]),
 });
 
 export const UserAppearance = () => {
+    const theme = useTheme()
+    
+    useEffect(() => {
+        console.log(theme)
+    }, [])
   const form = useForm<z.infer<typeof themeFormSchema>>({
     resolver: zodResolver(themeFormSchema),
     defaultValues: {
-      theme: "dark",
+      theme: theme.theme,
     },
   });
 
   const onSubmitHandler = (values: z.infer<typeof themeFormSchema>) => {
     console.log(values);
+    theme.setTheme(values.theme)
   };
 
   return (
