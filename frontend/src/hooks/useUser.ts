@@ -15,6 +15,12 @@ export const useLogin = () => {
             navigate({to: '/'});
             toast.dismiss(1)
             toast.success("User Logged in successfully")
+        },
+        onError: (error) => {
+            console.log(toast.getHistory())
+            toast.dismiss(1)
+            toast.error(error.message)
+            
         }
     })
 }
